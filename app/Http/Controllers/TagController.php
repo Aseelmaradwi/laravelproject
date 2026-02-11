@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Tag;
+use App\models\tag;
 use App\models\Post;
 
 
@@ -18,10 +18,12 @@ function index(){
 
    function create(){
     
-    Tag::create([
-      'title'=> 'tiktok',
+    // Tag::create([
+    //   'title'=> 'tiktok',
 
-    ]);
+    // ]);
+      tag::factory(100)->create();
+
 return redirect('/tag');
   } 
 
