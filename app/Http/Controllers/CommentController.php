@@ -4,43 +4,65 @@ namespace App\Http\Controllers;
 use App\Models\comment;
 use Illuminate\Http\Request;
 
-
 class CommentController extends Controller
 {
-   function index(){
-    $data = comment::all();
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+ $data = comment::all();
     return view('comment.index',['comments'=>$data,'page_Title'=>'page comment']);
-   } 
+        
+    }
 
-   function show($id){
-    $comment=Comment::findOrFail(id: $id);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+         $comment=Comment::findOrFail(id: $id);
     return view('comment.show',['comment'=>$comment,"page_Title"=>$comment->title]);
-   }
+        //
+    }
 
-   function create(){
-  
-    // Comment::create([
-    //   'author'=> 'aseel',
-    //   'content'=>'this is my first comment content',
-    //   'post_id'=>3,
-    // ]);
-          Comment::factory(100)->create();
-          return response()->json([
-            "message" => "comment created successfully"
-        ], 201);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
 
-return redirect('/comment');
-  } 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
 
-
-   function delete($id){
-    Comment::destroy($id);
-    // return redirect('/blog');
-    return response()->json([
-        "message" => "comment with id $id is deleted successfully"
-    ], 204);
-    return ("comment with id $id is deleted");
-  }
-
-
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
 }
