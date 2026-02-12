@@ -15,18 +15,20 @@ Route::get('/Contact', [IndexController::class, 'contact']);
 
 
 Route::get('/blog', [PostController::class, 'index']);
-Route::get('/blog/create', [PostController::class, 'create']);
-Route::get('/blog/delete/{id}', [PostController::class, 'delete']);
 Route::get('/blog/{id}', [PostController::class, 'show']);
 
 
 
 Route::get('/comment', [CommentController::class, 'index']);
-Route::get('/comment/create', action: [CommentController::class, 'create']);
+Route::get('/comment/{id}', [CommentController::class, 'show']);
+
+// Route::post('/comment/create', [CommentController::class, 'create']);
 
 Route::get('/tag', [TagController::class, 'index']);
-Route::get('/tag/create',  [TagController::class, 'create']);
+// Route::post('/tag/create',  [TagController::class, 'create']);
 Route::get('/tag/test',  [TagController::class, 'TestManyToMany']);
+Route::get('/tag/{id}', [TagController::class, 'show']);
+
 
 
 

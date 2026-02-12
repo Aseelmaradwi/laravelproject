@@ -23,9 +23,22 @@ function index(){
 
     // ]);
       tag::factory(100)->create();
+      return response()->json([
+        "message" => "tag created successfully"
+    ], 201);
 
 return redirect('/tag');
   } 
+
+  public function show($id)
+{
+    $tag = Tag::with('posts.comments')->findOrFail($id);
+
+    return view('tag.show', ['tag' => $tag,'page_Title' => $tag->title]);
+}
+
+
+  
 
   function TestManyToMany(){
 
@@ -56,8 +69,15 @@ return redirect('/tag');
       'post4'=>$post4->tags,
        'post'=>$post4->title
    ]);
-
-
 }
+
+ function delete($id){
+    Tag::destroy($id);
+    // return redirect('/blog');
+    return response()->json([
+        "message" => "tag with id $id is deleted successfully"
+    ], 204);
+    return ("tag with id $id is deleted");
+  }
 }
 

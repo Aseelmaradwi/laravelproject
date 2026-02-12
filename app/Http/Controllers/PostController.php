@@ -27,6 +27,9 @@ class PostController extends Controller
       //  ]);
 
       Post::factory(100)->create();
+return response()->json([
+    "message" => "post created successfully"
+], 201);
       
 
    
@@ -36,7 +39,10 @@ return redirect('/blog');
 
     function delete($id){
     Post::destroy($id);
-    return redirect('/blog');
+    // return redirect('/blog');
+    return response()->json([
+        "message" => "post with id $id is deleted successfully"
+    ], 204);
     return ("post with id $id is deleted");
   }
 }
