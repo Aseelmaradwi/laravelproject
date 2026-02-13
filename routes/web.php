@@ -21,8 +21,8 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, '__invoke']);
-Route::get('/About', [AboutController::class, '__invoke']);
-Route::get('/Contact', [ContactController::class, '__invoke']);
+Route::get('/about', [AboutController::class, '__invoke']);
+Route::get('/contact', [ContactController::class, '__invoke']);
 
 
 // Route::get('/blog', [PostController::class, 'index']);
