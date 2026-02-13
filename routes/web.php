@@ -8,6 +8,11 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\_TestController;
 use App\Http\Controllers\_postController;
 use App\Http\Controllers\_TagController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+
+
+
 
 
 
@@ -15,9 +20,9 @@ use App\Http\Controllers\_TagController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/About', [IndexController::class, 'about']);
-Route::get('/Contact', [IndexController::class, 'contact']);
+Route::get('/', [IndexController::class, '__invoke']);
+Route::get('/About', [AboutController::class, '__invoke']);
+Route::get('/Contact', [ContactController::class, '__invoke']);
 
 
 // Route::get('/blog', [PostController::class, 'index']);
