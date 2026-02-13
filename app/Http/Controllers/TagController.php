@@ -22,7 +22,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tag.create',['page_Title'=>'create tag']);
     }
 
     /**
