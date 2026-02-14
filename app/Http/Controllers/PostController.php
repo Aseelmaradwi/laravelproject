@@ -32,7 +32,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate=$request->validate([
+            'title'=>'required',
+            'body'=>'required',
+            'author'=>'required'
+        ],['title.required'=>'Field is required',
+        'body.required'=>'Field is required',
+        'author.required'=>'Field is required'
+        ]);
+
+            print_r($request->all());
     }
 
     /**

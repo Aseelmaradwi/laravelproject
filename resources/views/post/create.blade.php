@@ -1,73 +1,86 @@
-<x-layout :title="$page_Title">
+<x-layout :title="'Create a new post'">
 
-<div class="max-w-5xl mx-auto mt-12 bg-white p-10 rounded-lg shadow">
-    
-    <h2 class="text-2xl font-semibold text-gray-900 mb-10">
-        Create a new post.
-    </h2>
+<form method="POST" action="/post">
+    @csrf
 
-    <form method="POST" action="">
-        @csrf
+    <div class="space-y-12">
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Author
-                </label>
-                <input 
-                    type="text"
-                    name="author"
-                    class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
+        <div class="border-b border-gray-300 pb-12">
+            <h2 class="text-base font-semibold text-gray-900">
+                Create a new post.
+            </h2>
+
+            <!-- GRID START -->
+            <div class="mt-10 grid grid-cols-1 sm:grid-cols-6 gap-6">
+
+                <!-- Title -->
+                <div class="sm:col-span-3">
+                    <label for="title" class="block text-sm font-medium text-gray-900">
+                        Title
+                    </label>
+                    <div class="mt-2">
+                        <input id="title" type="text" name="title" value="{{ old('title') }}" class="block w-full rounded-md border {{ $errors->has('title') ? 'border-red-500' : 'border-gray-300' }} px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"/>
+                    </div>
+                    @error('title')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="author" class="block text-sm font-medium text-gray-900">
+                        Author
+                    </label>
+                    <div class="mt-2">
+                        <input id="author" type="text" name="author" value="{{ old('author') }}" class="block w-full rounded-md border {{ $errors->has('author') ? 'border-red-500' : 'border-gray-300' }} px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"/>
+                    </div>
+                    @error('author')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Body -->
+                <div class="sm:col-span-6">
+                    <label for="body" class="block text-sm font-medium text-gray-900">
+                        Body
+                    </label>
+                    <div class="mt-2">
+                        <textarea id="body" name="body" rows="4" class="block w-full rounded-md border {{ $errors->has('body') ? 'border-red-500' : 'border-gray-300' }} px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" >{{ old('body') }}</textarea>
+                    </div>
+                    @error('body')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
             </div>
-            <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Post Title
-                </label>
-                <input 
-                    type="text"
-                    name="title"
-                    class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" >
-            </div>
+            <!-- GRID END -->
         </div>
 
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-                body
-            </label>
-            <textarea 
-                name="body"
-                rows="5"
-                class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            ></textarea>
-
-        
-        </div>
-        <div class="border-t border-gray-200 my-8"></div>
-        <input type="hidden" name="published" value="0">
-
-        <div class="flex items-center gap-3 mb-8">
-            <input 
+        <!-- Published -->
+        <div class="flex items-center gap-3">
+            <input
+                id="published"
                 type="checkbox"
                 name="published"
-                value="1"
-                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-            <label class="text-sm font-medium text-gray-700">
+                checked
+                class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+            >
+            <label for="published" class="text-sm font-medium text-gray-900">
                 Published
             </label>
         </div>
 
-        <div class="flex justify-end gap-4">
-            
-           <a href="/post"
-           class="text-sm font-semibold text-gray-700">
-            Cancel
+        <!-- Buttons -->
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a href="/post" class="text-sm/6 font-semibold text-gray-900">
+                Cancel
             </a>
-        <button 
-                type="submit"
-                class="rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
+            <button type="submit"
+                class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
                 Save
             </button>
         </div>
-    </form>
-</div>
+
+    </div>
+
+</form>
+
 </x-layout>
