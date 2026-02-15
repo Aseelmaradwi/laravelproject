@@ -1,6 +1,7 @@
 <x-layout>
 
 <div class="bg-gray-50 min-h-screen">
+    
 
     <!-- Hero Section -->
     <div class="bg-indigo-600 text-white">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
+
 
 class PostController extends Controller
 {
@@ -12,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::cursorPaginate( 5);
+        $data = Post::latest()->cursorPaginate( 5);
 
     return view('post.index',['posts'=>$data,'page_Title'=>'page post']);
         //
@@ -30,18 +32,17 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $validate=$request->validate([
-            'title'=>'required',
-            'body'=>'required',
-            'author'=>'required'
-        ],['title.required'=>'Field is required',
-        'body.required'=>'Field is required',
-        'author.required'=>'Field is required'
-        ]);
+     $post=new Post();
+     $post->title=$request->input('title');
+     $post->body=$request->input('body');
+     $post->author=$request->input('author');
+     $post->published=$request->input('published');
+     $post->save();
 
-            print_r($request->all());
+     return redirect('post')->with('success','Post created successfully');
+
     }
 
     /**
@@ -59,15 +60,25 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post=Post::findOrFail($id);
+        return view('post.edit',["post"=>$post,"page_Title"=>$post->title]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostRequest $request, string $id)
     {
-        //
+        $post=Post::findOrFail($id);
+
+     $post->title=$request->input('title');
+     $post->body=$request->input('body');
+     $post->author=$request->input('author');
+     $post->published=$request->has('published');
+     
+     $post->save();
+
+     return redirect('post')->with('success','Post updated successfully');
     }
 
     /**
@@ -75,6 +86,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post=Post::findOrFail($id);
+        $post->delete();
+        return redirect('post')->with('success','Post deleted successfully');
     }
 }
