@@ -10,6 +10,8 @@ use App\Http\Controllers\_postController;
 use App\Http\Controllers\_TagController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
+
 
 
 
@@ -25,24 +27,16 @@ Route::get('/about', [AboutController::class, '__invoke']);
 Route::get('/contact', [ContactController::class, '__invoke']);
 
 
-// Route::get('/blog', [PostController::class, 'index']);
-// Route::get('/blog/{id}', [PostController::class, 'show']);
-
-
-
-// Route::get('/comment', [CommentController::class, 'index']);
-// Route::get('/comment/{id}', [CommentController::class, 'show']);
-
-// Route::post('/comment/create', [CommentController::class, 'create']);
-
-// Route::get('/tag', [TagController::class, 'index']);
-// Route::post('/tag/create',  [TagController::class, 'create']);
-// Route::get('/tag/test',  [TagController::class, 'TestManyToMany']);
-// Route::get('/tag/{id}', [TagController::class, 'show']);
-
 Route::resource('comment', CommentController::class);//comment
 Route::resource('post', PostController::class);//comment
 Route::resource('tag', TagController::class);//comment
+
+Route::get('/signup',[AuthController::class,'showsignup']);
+Route::post('/signup',[AuthController::class,'signup']);
+Route::get( '/login',[AuthController::class,'showlogin']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/logout',[AuthController::class,'logout']);
+
 
 
 
