@@ -59,6 +59,7 @@
                                 <div class="flex items-center space-x-3 bg-gray-700/50 rounded-full pl-4 pr-1 py-1">
                                     <span class="text-sm font-medium text-white">{{ Auth::user()->name }}</span>
                                     <form action="/logout" method="POST" class="inline">
+
                                         @csrf
                                         <button type="submit" 
                                                 class="text-sm text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-900 px-3 py-1.5 rounded-full transition-all duration-200">
