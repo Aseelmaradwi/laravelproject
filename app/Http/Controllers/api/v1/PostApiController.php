@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\api;
-use App\models\Tag;
-
+namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
-class TagApiController extends Controller
+
+
+class PostApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
-        $data=Tag::paginate(5);
+        $data=Post::paginate(5);
         if($data->isEmpty()){
-            return response()->json(['message' => 'No Tags found'], 404);
+            return response()->json(['message' => 'No posts found'], 404);
         }
         else{
             return response()->json($data,200);
@@ -28,9 +29,9 @@ class TagApiController extends Controller
      */
     public function store(Request $request)
     {
-       $data=Tag::create($request->all());
+       $data=Post::create($request->all());
        
-       return response()->json(['message' => 'Tag created successfully', 'data' => $data], 200);
+       return response()->json(['message' => 'Post created successfully', 'data' => $data], 200);
     }
 
     /**
@@ -38,12 +39,12 @@ class TagApiController extends Controller
      */
     public function show(string $id)
     {
-        $data=Tag::find($id);
+        $data=Post::find($id);
         if(!$data){
-            return response()->json(['message' => 'Tag not found'], 404);
+            return response()->json(['message' => 'Post not found'], 404);
         }
         else{
-        return response()->json(['message' => 'Tag retrieved successfully', 'data' => $data], 200);
+        return response()->json(['message' => 'Post retrieved successfully', 'data' => $data], 200);
     }
     }
 
@@ -52,16 +53,16 @@ class TagApiController extends Controller
      */
    public function update(Request $request, string $id)
 {
-    $data = Tag::find($id);
+    $data = Post::find($id);
 
     if (!$data) {
-        return response()->json(['message' => 'Tag not found'], 404);
+        return response()->json(['message' => 'Post not found'], 404);
     }
 
     $data->update($request->all());
 
     return response()->json([
-        'message' => 'Tag updated successfully',
+        'message' => 'Post updated successfully',
         'data' => $data
     ], 200);
 }
@@ -72,11 +73,11 @@ class TagApiController extends Controller
      */
     public function destroy(string $id)
     {
-       $data=Tag::find($id);
+       $data=Post::find($id);
        if(!$data){
-        return response()->json(['message' => 'Tag not found'], 404);
+        return response()->json(['message' => 'Post not found'], 404);
        }
        $data->delete();
-         return response()->json(['message' => 'Tag deleted successfully'], 200);
+         return response()->json(['message' => 'Post deleted successfully'], 200);
     }
 }

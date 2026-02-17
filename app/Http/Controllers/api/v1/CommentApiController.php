@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\api\v1;
+use App\Models\Comment;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-
-
-class PostApiController extends Controller
+class CommentApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-        $data=Post::paginate(5);
+        $data=Comment::paginate(5);
         if($data->isEmpty()){
-            return response()->json(['message' => 'No posts found'], 404);
+            return response()->json(['message' => 'No Comments found'], 404);
         }
         else{
             return response()->json($data,200);
@@ -29,9 +28,9 @@ class PostApiController extends Controller
      */
     public function store(Request $request)
     {
-       $data=Post::create($request->all());
+       $data=Comment::create($request->all());
        
-       return response()->json(['message' => 'Post created successfully', 'data' => $data], 200);
+       return response()->json(['message' => 'Comment created successfully', 'data' => $data], 200);
     }
 
     /**
@@ -39,12 +38,12 @@ class PostApiController extends Controller
      */
     public function show(string $id)
     {
-        $data=Post::find($id);
+        $data=Comment::find($id);
         if(!$data){
-            return response()->json(['message' => 'Post not found'], 404);
+            return response()->json(['message' => 'Comment not found'], 404);
         }
         else{
-        return response()->json(['message' => 'Post retrieved successfully', 'data' => $data], 200);
+        return response()->json(['message' => 'Comment retrieved successfully', 'data' => $data], 200);
     }
     }
 
@@ -53,16 +52,16 @@ class PostApiController extends Controller
      */
    public function update(Request $request, string $id)
 {
-    $data = Post::find($id);
+    $data = Comment::find($id);
 
     if (!$data) {
-        return response()->json(['message' => 'Post not found'], 404);
+        return response()->json(['message' => 'Comment not found'], 404);
     }
 
     $data->update($request->all());
 
     return response()->json([
-        'message' => 'Post updated successfully',
+        'message' => 'Comment updated successfully',
         'data' => $data
     ], 200);
 }
@@ -73,11 +72,11 @@ class PostApiController extends Controller
      */
     public function destroy(string $id)
     {
-       $data=Post::find($id);
+       $data=Comment::find($id);
        if(!$data){
-        return response()->json(['message' => 'Post not found'], 404);
+        return response()->json(['message' => 'Comment not found'], 404);
        }
        $data->delete();
-         return response()->json(['message' => 'Post deleted successfully'], 200);
+         return response()->json(['message' => 'Comment deleted successfully'], 200);
     }
 }
