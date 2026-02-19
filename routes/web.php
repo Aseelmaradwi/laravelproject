@@ -17,7 +17,7 @@ Route::get('/', [IndexController::class, '__invoke']);
 Route::get('/contact', [ContactController::class, '__invoke']);
 
 
-Route::resource('tag', TagController::class);//comment
+Route::resource('tag', TagController::class);
 
 Route::get('/signup',[AuthController::class,'showsignup'])->name('signup');
 Route::post('/signup',[AuthController::class,'signup']);
@@ -26,8 +26,27 @@ Route::post('/login',[AuthController::class,'login']);
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::middleware('auth')->group(function(){
-    Route::resource('post', PostController::class);//comment
-    Route::resource('comment', CommentController::class);//comment
+
+
+
+Route::middleware('role:admin')->group(function(){
+
+        Route::get('/post/create',[PostController::class,'create']);
+        Route::post('/post',[PostController::class,'store']);
+        Route::delete('/post/{id}',[PostController::class,'destroy']);
+    });
+
+Route::middleware('role:viewer,editor,admin')->group(function(){
+    Route::get('/post',[PostController::class,'index']);
+    Route::get('/post/{id}',[PostController::class,'show']);
+});
+Route::middleware('role:editor,admin')->group(function(){
+    Route::get('/post/{id}/edit',[PostController::class,'edit']);
+    Route::patch('/post/{id}',[PostController::class,'update']);
+    });
+
+
+Route::resource('comment', CommentController::class);//comment
 
 });
 

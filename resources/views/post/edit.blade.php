@@ -1,4 +1,5 @@
 <x-layout :title="$page_Title">
+
    <form method="POST" action="/post/{{ $post->id }}">
     @csrf
     @method('PATCH')
@@ -56,7 +57,6 @@
             <!-- GRID END -->
         </div>
 
-        <!-- Published -->
        <!-- Published -->
 <div class="flex items-center gap-3">
     <input id="published" type="checkbox"  name="published" value="1" {{ old('published') || (!old() && $post->published) ? 'checked' : '' }}
